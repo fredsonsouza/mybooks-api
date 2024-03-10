@@ -1,0 +1,39 @@
+{
+  "openapi":"3.0.0",
+  "info":{
+    "title":"MyBooks Documentation",
+    "description":"This is an API Rent",
+    "version":"1.0.0",
+    "contact":{
+      "email":"fred@email.com"
+      }   
+  },
+  "paths":{
+    "/genres":{
+      "post":{
+        "tags":["Genres"],
+        "summary":"Create a genre",
+        "description":"Create a new genre",
+        "requestBody":{
+          "content":{
+            "application/json":{
+              "schema":{
+                "type":"object",
+                "properties":{
+                  "name":{
+                    "type":"string"
+                  }
+                },
+                "example":{
+                  "name":"Create name sample",
+                  "description":"Genre description sample"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+}
