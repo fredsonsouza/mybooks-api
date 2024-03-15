@@ -4,6 +4,7 @@ import { User } from '@modules/accounts/infra/typeorm/entities/User';
 import { Book } from '@modules/books/infra/typeorm/entities/Book';
 import { BookImage } from '@modules/books/infra/typeorm/entities/BookImage';
 import { Genre } from '@modules/books/infra/typeorm/entities/Genre';
+import { Order } from '@modules/orders/infra/typeorm/entities/Order';
 
 export const dataSource = new DataSource({
   type: 'postgres',
@@ -14,7 +15,7 @@ export const dataSource = new DataSource({
   database: 'mybooks',
 
   migrations: ['./src/shared/infra/typeorm/migrations/*.ts'],
-  entities: [Genre, User, Book, BookImage],
+  entities: [Genre, User, Book, BookImage, Order],
 });
 
 export function createConnection(

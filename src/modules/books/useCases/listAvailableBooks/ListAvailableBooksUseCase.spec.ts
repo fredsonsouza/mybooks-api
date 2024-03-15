@@ -45,8 +45,6 @@ describe('List Books', () => {
       genre_id: 'genre_id 2',
     });
 
-    console.log(book);
-
     expect(books).toEqual([book]);
   });
 });
