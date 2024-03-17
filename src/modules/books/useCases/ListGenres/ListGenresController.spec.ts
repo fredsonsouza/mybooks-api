@@ -8,7 +8,7 @@ import { createConnection } from '@shared/infra/typeorm/data-source';
 
 let connection: DataSource;
 
-describe('Create Genre Controller', () => {
+describe('List Genre Controller', () => {
   beforeAll(async () => {
     connection = await createConnection();
     await connection.runMigrations();
@@ -27,7 +27,7 @@ describe('Create Genre Controller', () => {
     await connection.destroy().finally();
   });
 
-  it('Should be able to create a new Genre', async () => {
+  it('Should be able list all Genres', async () => {
     const responseToken = await request(app).post('/sessions').send({
       email: 'adminmybooks@email.com',
       password: 'admin',
@@ -35,31 +35,22 @@ describe('Create Genre Controller', () => {
 
     const { token } = responseToken.body;
 
-    const response = await request(app)
+    await request(app)
       .post('/genres')
       .send({
         name: 'Genre supertest',
         description: 'Description supertest',
       })
-      .set({ Authorization: `Bearer ${token}` });
-    expect(response.status).toBe(201);
-  });
+      .set({
+        Authorization: `Bearer ${token}`,
+      });
 
-  it('Should not be able to create a new Genre with the same name', async () => {
-    const responseToken = await request(app).post('/sessions').send({
-      email: 'adminmybooks@email.com',
-      password: 'admin',
-    });
+    const response = await request(app).get('/genres');
+    console.log(response.body);
 
-    const { token } = responseToken.body;
-
-    const response = await request(app)
-      .post('/genres')
-      .send({
-        name: 'Genre supertest',
-        description: 'Description supertest',
-      })
-      .set({ Authorization: `Bearer ${token}` });
-    expect(response.status).toBe(400);
+    expect(response.status).toBe(200);
+    expect(response.body.length).toBe(1);
+    expect(response.body[0]).toHaveProperty('id');
+    expect(response.body[0].name).toEqual('Genre supertest');
   });
 });
