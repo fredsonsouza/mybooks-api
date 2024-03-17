@@ -8,12 +8,11 @@ import { Order } from '@modules/orders/infra/typeorm/entities/Order';
 
 export const dataSource = new DataSource({
   type: 'postgres',
+  database: process.env.NODE_ENV === 'test' ? 'mybooks_test' : 'mybooks',
   host: 'localhost',
   port: 5432,
   username: 'docker',
   password: 'ignite',
-  database: 'mybooks',
-
   migrations: ['./src/shared/infra/typeorm/migrations/*.ts'],
   entities: [Genre, User, Book, BookImage, Order],
 });
@@ -21,5 +20,7 @@ export const dataSource = new DataSource({
 export function createConnection(
   host = 'database_mybooks',
 ): Promise<DataSource> {
-  return dataSource.setOptions({ host }).initialize();
+  return dataSource
+    .setOptions({ host: process.env.NODE_ENV === 'test' ? 'localhost' : host })
+    .initialize();
 }

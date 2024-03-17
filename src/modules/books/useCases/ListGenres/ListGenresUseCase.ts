@@ -1,6 +1,6 @@
 import { inject, injectable } from 'tsyringe';
 
-import { Genre } from '@modules/books/entities/Genre';
+import { Genre } from '@modules/books/infra/typeorm/entities/Genre';
 import { IGenresRepository } from '@modules/books/repositories/IGenresRepository';
 
 @injectable()
