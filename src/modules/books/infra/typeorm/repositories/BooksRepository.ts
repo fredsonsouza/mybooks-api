@@ -28,7 +28,7 @@ class BooksRepository implements IBooksRepository {
     return book;
   }
   async findAvailable(title?: string, genre_id?: string): Promise<Book[]> {
-    const booksQuery = await this.repository
+    const booksQuery = this.repository
       .createQueryBuilder('b')
       .where('available = :available', { available: true });
 

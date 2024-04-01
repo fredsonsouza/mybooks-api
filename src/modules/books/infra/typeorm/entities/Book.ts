@@ -22,6 +22,9 @@ class Book {
   available: boolean;
 
   @Column()
+  quantity: number;
+
+  @Column()
   genre_id: string;
 
   @ManyToOne(() => Genre)

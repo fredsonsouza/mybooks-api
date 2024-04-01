@@ -1,5 +1,6 @@
 import { inject, injectable } from 'tsyringe';
 
+import { IBooksRepository } from '@modules/books/repositories/IBooksRepository';
 import { Order } from '@modules/orders/infra/typeorm/entities/Order';
 import { IOrdersRepository } from '@modules/orders/repositories/IOrdersRepository';
 import { IDateProvider } from '@shared/container/providers/DateProvider/IDateProvider';
@@ -17,6 +18,8 @@ class CreateOrderUseCase {
     private ordersRepository: IOrdersRepository,
     @inject('DayjsDateProvider')
     private dateProvider: IDateProvider,
+    @inject('BooksRepository')
+    private booksREpository: IBooksRepository,
   ) {}
   async execute({
     user_id,
