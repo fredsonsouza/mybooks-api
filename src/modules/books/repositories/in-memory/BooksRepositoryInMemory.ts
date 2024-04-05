@@ -6,12 +6,13 @@ import { IBooksRepository } from '../IBooksRepository';
 class BooksRepositoryInMemory implements IBooksRepository {
   books: Book[] = [];
 
-  async create({ title, genre_id }: ICreateBookDTO): Promise<Book> {
+  async create({ title, genre_id, quantity }: ICreateBookDTO): Promise<Book> {
     const book = new Book();
 
     Object.assign(book, {
       title,
       genre_id,
+      quantity,
     });
 
     this.books.push(book);
@@ -21,6 +22,7 @@ class BooksRepositoryInMemory implements IBooksRepository {
   async findByTitle(title: string): Promise<Book> {
     return this.books.find(book => book.title === title);
   }
+
   async findAvailable(title?: string, genre_id?: string): Promise<Book[]> {
     const all = this.books.filter(book => {
       if (
@@ -33,6 +35,10 @@ class BooksRepositoryInMemory implements IBooksRepository {
       return null;
     });
     return all;
+  }
+  async updateQuantity(id: string, quantity: number): Promise<void> {
+    const findIndex = this.books.findIndex(book => book.id === id);
+    this.books[findIndex].quantity = quantity;
   }
 }
 

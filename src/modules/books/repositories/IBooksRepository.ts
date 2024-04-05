@@ -5,6 +5,7 @@ interface IBooksRepository {
   create(data: ICreateBookDTO): Promise<Book>;
   findByTitle(title: string): Promise<Book>;
   findAvailable(title?: string, genre_id?: string): Promise<Book[]>;
+  updateQuantity(id: string, quantity: number): Promise<void>;
 }
 
 export { IBooksRepository };

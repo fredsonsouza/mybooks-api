@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
 
+import { BooksRepositoryInMemory } from '@modules/books/repositories/in-memory/BooksRepositoryInMemory';
 import { OrdersRepositoryInMemory } from '@modules/orders/repositories/in-memory/OrdersRepositoryInMemory';
 import { DayjsDateProvider } from '@shared/container/providers/DateProvider/implementations/DayjsDateProvider';
 import { AppError } from '@shared/errors/AppError';
@@ -9,6 +10,7 @@ import { CreateOrderUseCase } from './CreateOrderUseCase';
 let ordersRepositoryInMemory: OrdersRepositoryInMemory;
 let createOrderUseCase: CreateOrderUseCase;
 let dayJsDateProvider: DayjsDateProvider;
+let booksRepositoryInMemory: BooksRepositoryInMemory;
 
 describe('Create order', () => {
   const dayAdd24Hours = dayjs().add(1, 'day').toDate();
@@ -16,9 +18,11 @@ describe('Create order', () => {
   beforeEach(() => {
     dayJsDateProvider = new DayjsDateProvider();
     ordersRepositoryInMemory = new OrdersRepositoryInMemory();
+    booksRepositoryInMemory = new BooksRepositoryInMemory();
     createOrderUseCase = new CreateOrderUseCase(
       ordersRepositoryInMemory,
       dayJsDateProvider,
+      booksRepositoryInMemory,
     );
   });
 

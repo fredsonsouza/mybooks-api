@@ -19,7 +19,7 @@ class CreateOrderUseCase {
     @inject('DayjsDateProvider')
     private dateProvider: IDateProvider,
     @inject('BooksRepository')
-    private booksREpository: IBooksRepository,
+    private booksRepository: IBooksRepository,
   ) {}
   async execute({
     user_id,
@@ -56,6 +56,7 @@ class CreateOrderUseCase {
       expected_getBook_date,
     });
 
+    await this.booksRepository.updateQuantity(book_id, 1);
     return order;
   }
 }

@@ -5,10 +5,14 @@ import { CreateBookUseCase } from './CreateBookUseCase';
 
 class CreateBookController {
   async handle(request: Request, response: Response): Promise<Response> {
-    const { title, genre_id } = request.body;
+    const { title, genre_id, quantity } = request.body;
     const createBookUseCase = container.resolve(CreateBookUseCase);
 
-    const book = await createBookUseCase.execute({ title, genre_id });
+    const book = await createBookUseCase.execute({
+      title,
+      genre_id,
+      quantity,
+    });
 
     return response.status(201).send(book);
   }

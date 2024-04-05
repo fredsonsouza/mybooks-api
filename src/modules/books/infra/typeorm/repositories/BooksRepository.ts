@@ -13,10 +13,17 @@ class BooksRepository implements IBooksRepository {
     this.repository = dataSource.getRepository(Book);
   }
 
-  async create({ title, genre_id }: ICreateBookDTO): Promise<Book> {
+  async create({
+    title,
+    genre_id,
+    quantity,
+    total,
+  }: ICreateBookDTO): Promise<Book> {
     const book = this.repository.create({
       title,
       genre_id,
+      quantity,
+      total,
     });
 
     await this.repository.save(book);
@@ -42,6 +49,15 @@ class BooksRepository implements IBooksRepository {
     const books = await booksQuery.getMany();
 
     return books;
+  }
+
+  async updateQuantity(id: string, quantity: number): Promise<void> {
+    await this.repository
+      .createQueryBuilder()
+      .update('books')
+      .set({ quantity: () => `"quantity" - ${quantity}` })
+      .where('id = :id', { id })
+      .execute();
   }
 }
 export { BooksRepository };
