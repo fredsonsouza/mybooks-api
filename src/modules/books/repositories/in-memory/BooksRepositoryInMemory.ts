@@ -25,17 +25,20 @@ class BooksRepositoryInMemory implements IBooksRepository {
 
   async findAvailable(title?: string, genre_id?: string): Promise<Book[]> {
     const all = this.books.filter(book => {
-      if (
-        book.available === true ||
-        (title && book.title === title) ||
-        (genre_id && book.genre_id === genre_id)
-      ) {
+      if (book.quantity > 0) {
+        return book;
+      }
+      if (book.quantity > 0 && title && book.title === title) {
+        return book;
+      }
+      if (book.quantity > 0 && genre_id && book.genre_id === genre_id) {
         return book;
       }
       return null;
     });
     return all;
   }
+
   async updateQuantity(id: string, quantity: number): Promise<void> {
     const findIndex = this.books.findIndex(book => book.id === id);
     this.books[findIndex].quantity = quantity;

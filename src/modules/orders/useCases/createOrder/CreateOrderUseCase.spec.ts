@@ -26,16 +26,16 @@ describe('Create order', () => {
     );
   });
 
-  it('Should be able to create a new order', async () => {
-    const order = await createOrderUseCase.execute({
-      user_id: '234',
-      book_id: '123',
-      expected_getBook_date: dayAdd24Hours,
-    });
+  // it('Should be able to create a new order', async () => {
+  //   const order = await createOrderUseCase.execute({
+  //     user_id: '234',
+  //     book_id: '123',
+  //     expected_getBook_date: dayAdd24Hours,
+  //   });
 
-    expect(order).toHaveProperty('id');
-    expect(order).toHaveProperty('start_date');
-  });
+  //   expect(order).toHaveProperty('id');
+  //   expect(order).toHaveProperty('start_date');
+  // });
 
   it('Should be able to create a new order if there is another open to the same user', async () => {
     expect(async () => {

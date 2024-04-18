@@ -16,11 +16,6 @@ export class CreateBooks1708820415809 implements MigrationInterface {
             type: 'varchar',
           },
           {
-            name: 'available',
-            type: 'boolean',
-            default: true,
-          },
-          {
             name: 'genre_id',
             type: 'uuid',
             isNullable: true,

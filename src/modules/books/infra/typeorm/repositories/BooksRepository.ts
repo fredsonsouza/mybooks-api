@@ -13,17 +13,11 @@ class BooksRepository implements IBooksRepository {
     this.repository = dataSource.getRepository(Book);
   }
 
-  async create({
-    title,
-    genre_id,
-    quantity,
-    total,
-  }: ICreateBookDTO): Promise<Book> {
+  async create({ title, genre_id, quantity }: ICreateBookDTO): Promise<Book> {
     const book = this.repository.create({
       title,
       genre_id,
       quantity,
-      total,
     });
 
     await this.repository.save(book);
@@ -37,7 +31,7 @@ class BooksRepository implements IBooksRepository {
   async findAvailable(title?: string, genre_id?: string): Promise<Book[]> {
     const booksQuery = this.repository
       .createQueryBuilder('b')
-      .where('available = :available', { available: true });
+      .where('b.quantity >0');
 
     if (title) {
       booksQuery.andWhere('b.title = :title', { title });

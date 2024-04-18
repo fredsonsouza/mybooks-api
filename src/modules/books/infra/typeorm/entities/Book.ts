@@ -19,9 +19,6 @@ class Book {
   title: string;
 
   @Column()
-  available: boolean;
-
-  @Column()
   quantity: number;
 
   @Column()
@@ -37,7 +34,6 @@ class Book {
   constructor() {
     if (!this.id) {
       this.id = uuidV4();
-      this.available = true;
     }
   }
 }

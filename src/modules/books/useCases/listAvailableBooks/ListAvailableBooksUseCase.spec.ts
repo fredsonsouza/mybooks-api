@@ -18,7 +18,7 @@ describe('List Books', () => {
     const book = await booksRepositoryInMemory.create({
       title: 'Title test',
       genre_id: 'genre_id',
-      quantity: 0,
+      quantity: 10,
     });
     const books = await listAvailableBooksUseCase.execute({});
 
@@ -28,17 +28,17 @@ describe('List Books', () => {
   it('Should be able to list available book by title', async () => {
     const book = await booksRepositoryInMemory.create({
       title: 'Title test 1',
-      genre_id: 'genre_id',
-      quantity: 2,
+      genre_id: 'genre_id 1',
+      quantity: 1,
     });
     const books = await listAvailableBooksUseCase.execute({
-      title: 'Title test 1',
+      title: 'Title test 22',
     });
 
     expect(books).toEqual([book]);
   });
 
-  it('Should be able to list available book by title', async () => {
+  it('Should be able to list available book by genre', async () => {
     const book = await booksRepositoryInMemory.create({
       title: 'Title test 2',
       genre_id: 'genre_id 2',

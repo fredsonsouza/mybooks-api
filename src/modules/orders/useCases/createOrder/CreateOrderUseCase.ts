@@ -27,8 +27,7 @@ class CreateOrderUseCase {
     expected_getBook_date,
   }: IRequest): Promise<Order> {
     const minimumHour = 24;
-    const bookUnAvailable =
-      await this.ordersRepository.findOpenOrderByBook(book_id);
+    const bookUnAvailable = await this.booksRepository.findAvailable(book_id);
 
     if (bookUnAvailable) {
       throw new AppError('Book is Unavailable');
